@@ -1,0 +1,33 @@
+---
+- name: Manage Portainer Agent
+  hosts: all
+  become: true
+  tasks:
+    - name: Stop Portainer Agent container
+      docker_container:
+        name: portainer_agent
+        state: stopped
+      ignore_errors: true
+
+    - name: Remove Portainer Agent container
+      docker_container:
+        name: portainer_agent
+        state: absent
+      ignore_errors: true
+
+    - name: Pull Portainer Agent image
+      docker_image:
+        name: portainer/agent:latest
+        source: pull
+
+    - name: Run Portainer Agent container
+      docker_container:
+        name: portainer_agent
+        image: portainer/agent:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "9001:9001"
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+          - "/var/lib/docker/volumes:/var/lib/docker/volumes"
