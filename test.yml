@@ -1,5 +1,6 @@
 ---
 - name: Execute 'whoami' command
+  hosts: all
   become: true
 
   tasks:
