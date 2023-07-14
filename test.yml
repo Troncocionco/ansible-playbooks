@@ -11,3 +11,12 @@
     - name: Display 'whoami' output
       debug:
         var: whoami_output.stdout
+
+    - name: Determine if 'apt' command is available
+      command: which apt
+      register: apt_check
+      ignore_errors: true
+
+    - name: Display result
+      debug:
+        msg: "'apt' command is {{ 'available' if apt_check.rc == 0 else 'not available' }}"
