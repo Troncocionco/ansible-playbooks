@@ -9,10 +9,6 @@
       apt:
         update_cache: yes
 
-    - name: Pause for 30 seconds
-      pause:
-        seconds: 30
-
     - name: Upgrade system packages
       apt:
         upgrade: dist
