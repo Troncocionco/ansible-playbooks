@@ -2,7 +2,7 @@
 - name: Execute 'whoami' command
   hosts: all
   become: true
-  become_user: root
+  gather_facts: true
 
   tasks:
     - name: Run 'whoami' command
@@ -21,3 +21,15 @@
     - name: Display result
       debug:
         msg: "'apt' command is {{ 'available' if apt_check.rc == 0 else 'not available' }}"
+
+    - name: Check if root privileged commands can be run
+    raw: id  # You can replace "id" with any other command you want to check.
+    register: command_output
+    changed_when: false
+    ignore_errors: true
+    become: true
+    become_method: sudo  # Change this to "su" if "sudo" is not available on your system.
+
+  - name: Print the command output
+    debug:
+      var: command_output
