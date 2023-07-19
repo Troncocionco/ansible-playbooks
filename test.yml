@@ -30,6 +30,6 @@
     become: true
     become_method: sudo  # Change this to "su" if "sudo" is not available on your system.
 
-  - name: Print the command output
-    debug:
-      var: command_output
+    - name: Print the command output
+      debug:
+        var: command_output
