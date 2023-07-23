@@ -1,0 +1,9 @@
+---
+- name: Execute Python script
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: Run the Python script
+      command: python3 /home/giacomo/Projects/teleBot/pullReleases.py
+      become: false
