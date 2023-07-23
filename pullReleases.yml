@@ -9,7 +9,7 @@
   tasks: 
     - name: Source the shell configuration files
       shell: |
-        source /path/to/user/shell/configuration/file
+        source /home/giacomo/.bashrc
       become: false
       changed_when: false
       args:
