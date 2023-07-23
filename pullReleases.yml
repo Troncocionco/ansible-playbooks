@@ -3,7 +3,10 @@
   hosts: all
   gather_facts: true
 
-  tasks:    
+  vars:
+      BOT_CONF_FILE: "{{ BOT_CONF_FILE }}"  # Use the survey variable as the value.
+
+  tasks: 
     - name: Check the value of BOT_CONF_FILE environment variable
       command: echo $BOT_CONF_FILE  # Change 'command' to 'shell' if using a shell specific command.
       become: false
