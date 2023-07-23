@@ -4,7 +4,7 @@
   gather_facts: true
 
   vars:
-      BOT_CONF_FILE: "/home/giacomo/Projects/teleBot/conf.json"  # Use the survey variable as the value.
+      BOT_CONF_FILE: "{{ BOT_CONF_FILE }}"  # Use the survey variable as the value.
 
   tasks: 
     - name: Check the value of BOT_CONF_FILE environment variable
