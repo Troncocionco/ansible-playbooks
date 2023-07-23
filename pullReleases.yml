@@ -3,28 +3,7 @@
   hosts: all
   gather_facts: true
 
-  vars:
-      BOT_CONF_FILE: "{{ BOT_CONF_FILE }}"  # Use the survey variable as the value.
-
   tasks: 
-    - name: Source the shell configuration files
-      shell: |
-        source /home/giacomo/.bashrc
-      become: false
-      changed_when: false
-      args:
-        executable: /bin/bash  # Specify the appropriate shell for sourcing the files.
-
-    - name: Check the value of BOT_CONF_FILE environment variable
-      command: echo $BOT_CONF_FILE  # Change 'command' to 'shell' if using a shell specific command.
-      become: false
-      register: bot_conf_file_output
-      changed_when: false
-
-    - name: Display the value of BOT_CONF_FILE environment variable
-      debug:
-        var: bot_conf_file_output.stdout
-
     - name: Run the Python script
       command: python3 /home/giacomo/Projects/teleBot/pullReleases.py
       become: false
