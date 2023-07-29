@@ -7,3 +7,15 @@
     - name: Run the Python script
       command: python3 /home/giacomo/Projects/teleBot/pullReleases.py
       become: false
+
+    - name: Set Environment Variable
+      environment:
+        BOT_CONFIG_FILE: "my_value"
+      # Add your task here that requires the environment variable
+      # For example, running a command that uses the environment variable
+      shell: echo $MY_VARIABLE
+      register: output
+
+    - name: Display Output
+      debug:
+        var: output.stdout
