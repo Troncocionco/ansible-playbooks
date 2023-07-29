@@ -7,10 +7,10 @@
 
     - name: Set Environment Variable
       environment:
-        BOT_CONFIG_FILE: "my_value"
+        BOT_CONF_FILE: "/home/giacomo/Projects/teleBot/conf.json"
       # Add your task here that requires the environment variable
       # For example, running a command that uses the environment variable
-      shell: echo $BOT_CONFIG_FILE
+      shell: echo $BOT_CONF_FILE
       register: output
 
     - name: Display Output
