@@ -4,9 +4,6 @@
   gather_facts: true
 
   tasks: 
-    - name: Run the Python script
-      command: python3 /home/giacomo/Projects/teleBot/pullReleases.py
-      become: false
 
     - name: Set Environment Variable
       environment:
@@ -19,3 +16,7 @@
     - name: Display Output
       debug:
         var: output.stdout
+        
+    - name: Run the Python script
+      command: python3 /home/giacomo/Projects/teleBot/pullReleases.py
+      become: false
