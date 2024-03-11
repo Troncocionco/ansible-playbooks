@@ -14,4 +14,4 @@
         upgrade: dist
         autoremove: yes
         autoclean: yes
-        clean: yes
+
