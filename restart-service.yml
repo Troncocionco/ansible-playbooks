@@ -1,6 +1,6 @@
 ---
 - name: Restart a Systemd Service
-  hosts: target_group
+  hosts: all
   become: true  # Per ottenere privilegi sudo
   tasks:
     - name: Restart the specified service
