@@ -1,0 +1,25 @@
+---
+- name: Installare un pacchetto con aggiornamento dei riferimenti
+  hosts: all
+  become: true
+
+  vars:
+    package_name: ""  # Nome del pacchetto da installare
+
+  tasks:
+    - name: Aggiornare i riferimenti del package manager (apt)
+      ansible.builtin.apt:
+        update_cache: yes
+      when: ansible_pkg_mgr == "apt"
+
+    - name: Aggiornare i riferimenti del package manager (dnf/yum)
+      ansible.builtin.yum:
+        name: "*"
+        state: latest
+      when: ansible_pkg_mgr in ["dnf", "yum"]
+
+    - name: Installare il pacchetto
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: package_name != ""
