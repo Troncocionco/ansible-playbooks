@@ -1,7 +1,6 @@
 ---
 - name: Esegui script Python pullReleases.py
   hosts: all
-  become: true
   become_user: "{{ local_user }}"
   vars:
     script_path: ""  # Valore predefinito, sovrascrivibile
@@ -12,6 +11,7 @@
         name: python3
         state: present
         update_cache: yes
+      become: true
 
     - name: Esegui lo script Python
       ansible.builtin.command:
