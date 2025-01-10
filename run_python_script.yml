@@ -1,6 +1,6 @@
 ---
 - name: Esegui script Python pullReleases.py
-  hosts: target_host_group
+  hosts: all
   vars:
     script_path: "/remote/path/to/pullReleases.py"  # Valore predefinito, sovrascrivibile
 
