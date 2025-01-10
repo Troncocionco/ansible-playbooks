@@ -4,6 +4,8 @@
   become_user: "{{ local_user }}"
   vars:
     script_path: ""  # Valore predefinito, sovrascrivibile
+  environment:
+        BOT_CONF_FILE: "{{ BOT_CONF_FILE }}"
 
   tasks:
     - name: Esegui lo script Python
