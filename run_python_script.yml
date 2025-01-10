@@ -1,6 +1,7 @@
 ---
 - name: Esegui script Python pullReleases.py
   hosts: all
+  become: true
   vars:
     script_path: "/remote/path/to/pullReleases.py"  # Valore predefinito, sovrascrivibile
 
