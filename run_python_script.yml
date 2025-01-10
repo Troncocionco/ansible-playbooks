@@ -14,7 +14,7 @@
 
     - name: Esegui lo script Python
       ansible.builtin.command:
-        cmd: python3 {{ script_path }}
+        cmd: python3 {{ src_script }}
       register: result
 
     - name: Mostra l'output dello script
