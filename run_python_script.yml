@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars:
-    script_path: "/remote/path/to/pullReleases.py"  # Valore predefinito, sovrascrivibile
+    script_path: ""  # Valore predefinito, sovrascrivibile
 
   tasks:
     - name: Assicurati che Python sia installato
