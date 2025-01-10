@@ -6,13 +6,6 @@
     script_path: ""  # Valore predefinito, sovrascrivibile
 
   tasks:
-    - name: Assicurati che Python sia installato
-      ansible.builtin.apt:
-        name: python3
-        state: present
-        update_cache: yes
-      become: true
-
     - name: Esegui lo script Python
       ansible.builtin.command:
         cmd: python3 {{ src_script }}
