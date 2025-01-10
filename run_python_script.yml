@@ -1,0 +1,21 @@
+---
+- name: Esegui script Python pullReleases.py
+  hosts: target_host_group
+  vars:
+    script_path: "/remote/path/to/pullReleases.py"  # Valore predefinito, sovrascrivibile
+
+  tasks:
+    - name: Assicurati che Python sia installato
+      ansible.builtin.apt:
+        name: python3
+        state: present
+        update_cache: yes
+
+    - name: Esegui lo script Python
+      ansible.builtin.command:
+        cmd: python3 {{ script_path }}
+      register: result
+
+    - name: Mostra l'output dello script
+      ansible.builtin.debug:
+        var: result.stdout
