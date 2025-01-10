@@ -2,6 +2,7 @@
 - name: Esegui script Python pullReleases.py
   hosts: all
   become: true
+  become_user: {{ local_user }}
   vars:
     script_path: ""  # Valore predefinito, sovrascrivibile
 
