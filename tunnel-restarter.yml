@@ -1,16 +1,23 @@
-- name: Verifica e avvia il tunnel VS Code
+---
+- name: Controlla e avvia il tunnel di VSCode
   hosts: all
-  become_user: "{{ username }}"
+  become: "{{ username }}"
   tasks:
     - name: Controlla lo stato del tunnel
       command: code tunnel status
-      register: tunnel_status_output
-
-    - name: Analizza lo stato del tunnel
-      set_fact:
-        tunnel_status: "{{ tunnel_status_output.stdout | from_json }}"
-
-    - name: Avvia il tunnel se è disconnesso
+      register: status_output
+      ignore_errors: true  # Ignora eventuali errori per catturare l'output
+    - name: Mostra l'output dello stato del tunnel
+      debug:
+        var: status_output.stdout_lines       
+    - name: Avvia il tunnel se necessario
       command: code tunnel start
-      when: tunnel_status.tunnel.tunnel == "Disconnected"
+      when: "'Disconnected' in status_output.stdout or status_output.rc != 0"
+      register: start_output
+      ignore_errors: true  # Ignora errori per catturare comunque l'output
+    - name: Mostra l'output dell'avvio del tunnel
+      debug:
+        var: start_output.stdout_lines
+
+
 
