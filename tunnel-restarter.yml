@@ -1,7 +1,7 @@
 ---
 - name: Controlla e avvia il tunnel di VSCode
   hosts: all
-  become: "{{ username }}"
+  become_user: "{{ username }}"
   tasks:
     - name: Controlla lo stato del tunnel
       command: code tunnel status
