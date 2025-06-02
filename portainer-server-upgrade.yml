@@ -1,6 +1,6 @@
 ---
 - name: Upgrade Portainer's Server
-  hosts: {{ host }}
+  hosts: all
   become: true
   tasks:
     - name: Stop Portainer container
