@@ -8,6 +8,7 @@
     script_path: "{{ script_path }}"  # Variabile passata da Semaphore
 
   tasks:
-    - name: Avvia lo script di backup in background
-      ansible.builtin.shell: "sudo nohup {{ script_path }} > /tmp/backup.log 2>&1 &"
+    - name: Avvia lo script di backup in background con log con timestamp
+      ansible.builtin.shell: |
+        sudo nohup bash -c 'while IFS= read -r line; do echo "$(date "+%Y-%m-%d %H:%M:%S") $line"; done < <({{ script_path }}) >> /tmp/backup.log 2>&1 &' 
       become: yes
