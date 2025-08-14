@@ -1,0 +1,13 @@
+---
+- name: Esegui script shell su tutti gli host
+  hosts: all
+  gather_facts: no
+  strategy: free
+
+  vars:
+    script_path: "{{ script_path }}"  # Variabile passata da Semaphore
+
+  tasks:
+    - name: Avvia shell script
+      ansible.builtin.shell: "{{ script_path }}"
+      become: yes
