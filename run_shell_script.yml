@@ -1,5 +1,5 @@
 ---
-- name: Esegui script shell su tutti gli host
+- name: Avvia backup Restic su tutti gli host
   hosts: all
   gather_facts: no
   strategy: free
@@ -8,6 +8,6 @@
     script_path: "{{ script_path }}"  # Variabile passata da Semaphore
 
   tasks:
-    - name: Avvia shell script
-      ansible.builtin.shell: "{{ script_path }}"
+    - name: Avvia lo script di backup in background
+      ansible.builtin.shell: "nohup {{ script_path }} > /tmp/backup.log 2>&1 &"
       become: yes
