@@ -6,9 +6,17 @@
 
   vars:
     script_path: "{{ script_path }}"  # Variabile passata da Semaphore
+    log_file: /tmp/backup.log
 
   tasks:
-    - name: Avvia lo script di backup in background con log con timestamp
+    - name: Esegui lo script di backup con log in tempo reale
       ansible.builtin.shell: |
-        sudo nohup bash -c 'while IFS= read -r line; do echo "$(date "+%Y-%m-%d %H:%M:%S") $line"; done < <({{ script_path }}) >> /tmp/backup.log 2>&1 &' 
+        sudo bash -c '{
+          while IFS= read -r line; do
+            timestamped_line="$(date "+%Y-%m-%d %H:%M:%S") $line"
+            echo "$timestamped_line" | tee -a {{ log_file }}
+          done < <({{ script_path }})
+        }'
       become: yes
+      args:
+        executable: /bin/bash
