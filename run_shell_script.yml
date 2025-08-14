@@ -1,21 +1,17 @@
 ---
-- name: Esegui lo script di backup con log in tempo reale
+- name: Esegui uno script Bash con output timestamped
   hosts: all
   gather_facts: no
   strategy: free
 
   vars:
-    script_path: "{{ script_path }}"  # Variabile passata da Semaphore
-    log_file: /tmp/backup.log
+    script_path: "{{ script_path }}"  # Percorso dello script da eseguire
 
   tasks:
-    - name: Esegui backup come root con log timestamped
+    - name: Esegui lo script come root e mostra output con timestamp
       ansible.builtin.shell: |
-        sudo bash -c '{
-          while IFS= read -r line; do
-            timestamped_line="$(date "+%Y-%m-%d %H:%M:%S") $line"
-            echo "$timestamped_line" | sudo tee -a {{ log_file }}
-          done < <({{ script_path }})
-        }'
+        sudo bash -c 'while IFS= read -r line; do
+          echo "$(date "+%Y-%m-%d %H:%M:%S") $line"
+        done < <({{ script_path }})'
       args:
         executable: /bin/bash
