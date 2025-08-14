@@ -9,5 +9,5 @@
 
   tasks:
     - name: Avvia lo script di backup in background
-      ansible.builtin.shell: "nohup {{ script_path }} > /tmp/backup.log 2>&1 &"
+      ansible.builtin.shell: "sudo nohup {{ script_path }} > /tmp/backup.log 2>&1 &"
       become: yes
