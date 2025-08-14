@@ -1,5 +1,5 @@
 ---
-- name: Avvia backup Restic su tutti gli host
+- name: Esegui lo script di backup con log in tempo reale
   hosts: all
   gather_facts: no
   strategy: free
@@ -9,14 +9,13 @@
     log_file: /tmp/backup.log
 
   tasks:
-    - name: Esegui lo script di backup con log in tempo reale
+    - name: Esegui backup come root con log timestamped
       ansible.builtin.shell: |
         sudo bash -c '{
           while IFS= read -r line; do
             timestamped_line="$(date "+%Y-%m-%d %H:%M:%S") $line"
-            echo "$timestamped_line" | tee -a {{ log_file }}
+            echo "$timestamped_line" | sudo tee -a {{ log_file }}
           done < <({{ script_path }})
         }'
-      become: yes
       args:
         executable: /bin/bash
