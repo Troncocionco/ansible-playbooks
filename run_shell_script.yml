@@ -1,17 +1,14 @@
 ---
-- name: Esegui uno script Bash con output timestamped
+- name: Esegui script Bash con monitoraggio stato
   hosts: all
   gather_facts: no
   strategy: free
 
   vars:
-    script_path: "{{ script_path }}"  # Percorso dello script da eseguire
+    script_path: "{{ script_path }}"
 
   tasks:
-    - name: Esegui lo script come root e mostra output con timestamp
-      ansible.builtin.shell: |
-        sudo bash -c 'while IFS= read -r line; do
-          echo "$(date "+%Y-%m-%d %H:%M:%S") $line"
-        done < <({{ script_path }})'
-      args:
-        executable: /bin/bash
+    - name: Avvia script e monitora fino a completamento
+      ansible.builtin.shell: sudo {{ script_path }}
+      async: 7200     # massimo 2 ore
+      poll: 10        # controlla ogni 10 secondi
